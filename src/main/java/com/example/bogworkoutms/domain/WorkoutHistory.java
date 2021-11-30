@@ -22,7 +22,7 @@ public class WorkoutHistory {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID historyId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "workout_id")
     private Workout workout;
 

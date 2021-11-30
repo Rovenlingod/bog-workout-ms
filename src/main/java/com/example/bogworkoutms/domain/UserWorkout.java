@@ -15,7 +15,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class UserWorkout {
     @Id
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "workout_id")
     private Workout workout;
 
