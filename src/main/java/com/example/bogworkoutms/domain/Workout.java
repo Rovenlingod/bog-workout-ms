@@ -28,10 +28,10 @@ public class Workout {
     private UUID userId;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "workout", cascade = CascadeType.ALL)
-    private List<WorkoutHistory> workoutHistories;
+    private List<WorkoutRound> workoutRounds;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "workout", cascade = CascadeType.ALL)
-    private List<WorkoutRound> workoutRounds;
+    private List<WorkoutHistory> workoutHistories;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "workout", cascade = CascadeType.ALL)
     private List<UserWorkout> userWorkouts;

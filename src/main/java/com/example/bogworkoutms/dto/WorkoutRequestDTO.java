@@ -1,5 +1,6 @@
 package com.example.bogworkoutms.dto;
 
+import com.example.bogworkoutms.feign.feignDtos.RoundCreationRequest;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,11 +12,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WorkoutRequestDTO {
-
     @NotBlank(message = "Title is mandatory")
     private String title;
-    @NotBlank(message = "UserID is mandatory")
     private String creatorId;
-    private List<String> workoutHistories;
-
+    private List<RoundCreationRequest> roundCreationDTOs;
 }
