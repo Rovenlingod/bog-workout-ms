@@ -45,10 +45,11 @@ public class WorkoutServiceImpl implements WorkoutService {
     @Override
     public UUID createWorkout(WorkoutRequestDTO workoutRequestDTO) {
         Workout newWorkout = workoutMapper.toEntity(workoutRequestDTO);
-        List<WorkoutRound> workoutRounds = new ArrayList<WorkoutRound>();
-        for (RoundCreationRequest roundCreationRequest : workoutRequestDTO.getRoundCreationDTOs()) {
+        List<WorkoutRound> workoutRounds = new ArrayList<>();
+        List<String> roundIdList = roundServiceFeign.saveRoundList(workoutRequestDTO.getRoundCreationDTOs());
+        for (String stringId : roundIdList) {
             WorkoutRound newWorkoutRound = new WorkoutRound();
-            newWorkoutRound.setRoundId(UUID.fromString(roundServiceFeign.saveRound(roundCreationRequest)));
+            newWorkoutRound.setRoundId(UUID.fromString(stringId));
             newWorkoutRound.setWorkout(newWorkout);
             workoutRounds.add(newWorkoutRound);
         }

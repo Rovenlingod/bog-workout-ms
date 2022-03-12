@@ -15,6 +15,9 @@ public interface RoundServiceFeign {
     @PostMapping("/api/round")
     String saveRound(RoundCreationRequest roundCreationRequest);
 
+    @PostMapping("/api/rounds")
+    List<String> saveRoundList(List<RoundCreationRequest> roundCreationRequest);
+
     @GetMapping(value = "/api/round/{ids}")
     List<RoundDTO> getRoundByIds(@PathVariable(name = "ids") List<String> ids);
 }
