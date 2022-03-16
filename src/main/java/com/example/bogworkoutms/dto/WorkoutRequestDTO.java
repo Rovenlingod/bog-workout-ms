@@ -14,6 +14,5 @@ import java.util.List;
 public class WorkoutRequestDTO {
     @NotBlank(message = "Title is mandatory")
     private String title;
-    private String creatorId;
     private List<RoundCreationRequest> roundCreationDTOs;
 }

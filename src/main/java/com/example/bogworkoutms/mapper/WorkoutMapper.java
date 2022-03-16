@@ -22,7 +22,7 @@ public abstract class WorkoutMapper {
     private RoundServiceFeign roundServiceFeign;
 
     @Mappings({
-            @Mapping(target = "userId", expression = "java(java.util.UUID.fromString(workoutRequestDTO.getCreatorId()))")
+            @Mapping(target = "userId", expression = "java((java.util.UUID.fromString(((com.example.bogworkoutms.feign.feignDtos.UserDetailsDTO) org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUuid())))")
     })
     public abstract Workout toEntity(WorkoutRequestDTO workoutRequestDTO);
 
