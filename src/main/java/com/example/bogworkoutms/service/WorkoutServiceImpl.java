@@ -12,7 +12,9 @@ import com.example.bogworkoutms.repository.UserWorkoutRepository;
 import com.example.bogworkoutms.repository.WorkoutHistoryRepository;
 import com.example.bogworkoutms.repository.WorkoutRepository;
 import com.example.bogworkoutms.repository.WorkoutRoundRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,8 +40,10 @@ public class WorkoutServiceImpl implements WorkoutService {
     }
 
     @Override
-    public WorkoutResponseDTO findByWorkoutId(String userId) {
-        return null;
+    public WorkoutResponseDTO findByWorkoutId(String id) {
+
+        return workoutMapper.toDTO(workoutRepository.findById(UUID.fromString(id))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "There is no workout with id: " + id)));
     }
 
     @Override
