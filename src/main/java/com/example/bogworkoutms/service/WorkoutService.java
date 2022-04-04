@@ -9,4 +9,6 @@ public interface WorkoutService {
     WorkoutResponseDTO findByWorkoutId(String id);
     UUID createWorkout(WorkoutRequestDTO workoutRequestDTO);
     WorkoutResponseDTO updateWorkout(WorkoutRequestDTO workoutRequestDTO);
+    void subscribeToWorkout(String workoutId);
+    void unsubscribeFromWorkout(String workoutId);
 }
