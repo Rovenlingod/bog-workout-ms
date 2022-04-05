@@ -22,7 +22,8 @@ public abstract class WorkoutMapper {
     private RoundServiceFeign roundServiceFeign;
 
     @Mappings({
-            @Mapping(target = "userId", expression = "java((java.util.UUID.fromString(((com.example.bogworkoutms.feign.feignDtos.UserDetailsDTO) org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUuid())))")
+            @Mapping(target = "userId", expression = "java((java.util.UUID.fromString(((com.example.bogworkoutms.feign.feignDtos.UserDetailsDTO) org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUuid())))"),
+            @Mapping(target = "creationDate", expression = "java(new java.util.Date())")
     })
     public abstract Workout toEntity(WorkoutRequestDTO workoutRequestDTO);
 

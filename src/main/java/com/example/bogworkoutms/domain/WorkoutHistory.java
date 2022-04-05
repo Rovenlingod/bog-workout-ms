@@ -1,6 +1,7 @@
 package com.example.bogworkoutms.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
@@ -8,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -15,6 +17,7 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class WorkoutHistory {
     @Id
     @Column(name = "history_id")
@@ -29,6 +32,7 @@ public class WorkoutHistory {
     @Column(name = "user_id")
     private UUID userId;
 
-    @DateTimeFormat
-    private LocalDateTime timestamp;
+    @Column(name = "completion_timestamp")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date completionTimestamp;
 }

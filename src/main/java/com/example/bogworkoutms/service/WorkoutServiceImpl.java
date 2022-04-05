@@ -16,6 +16,7 @@ import com.example.bogworkoutms.repository.WorkoutHistoryRepository;
 import com.example.bogworkoutms.repository.WorkoutRepository;
 import com.example.bogworkoutms.repository.WorkoutRoundRepository;
 import com.example.bogworkoutms.utulities.CustomUtils;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -103,6 +104,24 @@ public class WorkoutServiceImpl implements WorkoutService {
         } else {
             userWorkoutRepository.deleteByUserIdAndWorkout(UUID.fromString(currentUser.getUuid()), requestedWorkout);
         }
+    }
+
+    @Override
+    public List<WorkoutResponseDTO> getSubscribedWorkouts(int pageNo, int numberOfElements) {
+        UserDetailsDTO currentUser = CustomUtils.getCurrentUser()
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Couldn't find user in context. Contact support."));
+        return userWorkoutRepository.findAllByUserId(UUID.fromString(currentUser.getUuid()), PageRequest.of(pageNo, numberOfElements))
+                .stream()
+                .map(e -> workoutMapper.toDTO(e.getWorkout()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<WorkoutResponseDTO> getLatest(int pageNo, int numberOfElements) {
+        return workoutRepository.findAllByOrderByCreationDateDesc(PageRequest.of(pageNo, numberOfElements))
+                .stream()
+                .map(workoutMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
     @Override

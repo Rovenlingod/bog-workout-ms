@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -42,5 +43,15 @@ public class WorkoutController {
     public ResponseEntity<?> unsubscribeFromWorkout(@PathVariable String id) {
         workoutService.unsubscribeFromWorkout(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @GetMapping("/subscribed")
+    public ResponseEntity<List<WorkoutResponseDTO>> getSubscribedWorkouts(@RequestParam(defaultValue = "0") int pageNo, @RequestParam(defaultValue = "5") int numberOfElements) {
+        return ResponseEntity.ok().body(workoutService.getSubscribedWorkouts(pageNo, numberOfElements));
+    }
+
+    @GetMapping("/latest")
+    public ResponseEntity<List<WorkoutResponseDTO>> getLatest(@RequestParam(defaultValue = "0") int pageNo, @RequestParam(defaultValue = "10") int numberOfElements) {
+        return ResponseEntity.ok().body(workoutService.getLatest(pageNo, numberOfElements));
     }
 }
